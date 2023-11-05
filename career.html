@@ -1,380 +1,704 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Career || Conncet4Care </title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Career || Conncet4Care</title>
 
     <!-- favicons -->
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon/favicon-16x16.png">
-    <link rel="manifest" href="assets/images/favicon/site.webmanifest">
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/images/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/images/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="assets/images/favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="assets/images/favicon/site.webmanifest" />
 
     <!-- plugins styles -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Baloo+2:400,500,600,700,800%7CLato:100,300,400,700,900%7COpen+Sans:300,400,600,700,800%7CRoboto:300,400,500,700,900%7CRubik:300,400,500,700,900&display=swap">
-    <link rel="stylesheet" href="assets/css/animate.css">
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/bootstrap-datepicker.min.css">
-    <link rel="stylesheet" href="assets/css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
-    <link rel="stylesheet" href="assets/css/hover-min.css">
-    <link rel="stylesheet" href="assets/css/swiper.min.css">
-    <link rel="stylesheet" href="assets/css/jquery.mCustomScrollbar.min.css">
-    <link rel="stylesheet" href="assets/css/magnific-popup.css">
-    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="assets/css/oberlin-icons.css">
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Baloo+2:400,500,600,700,800%7CLato:100,300,400,700,900%7COpen+Sans:300,400,600,700,800%7CRoboto:300,400,500,700,900%7CRubik:300,400,500,700,900&display=swap"
+    />
+    <link rel="stylesheet" href="assets/css/animate.css" />
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/bootstrap-datepicker.min.css" />
+    <link rel="stylesheet" href="assets/css/bootstrap-select.min.css" />
+    <link rel="stylesheet" href="assets/css/fontawesome-all.min.css" />
+    <link rel="stylesheet" href="assets/css/hover-min.css" />
+    <link rel="stylesheet" href="assets/css/swiper.min.css" />
+    <link rel="stylesheet" href="assets/css/jquery.mCustomScrollbar.min.css" />
+    <link rel="stylesheet" href="assets/css/magnific-popup.css" />
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css" />
+    <link rel="stylesheet" href="assets/css/owl.theme.default.min.css" />
+    <link rel="stylesheet" href="assets/css/oberlin-icons.css" />
 
     <!-- template styles -->
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/responsive.css" />
+    <script>
+      // Function to handle form submission
+      function handleSubmit(event) {
+        event.preventDefault(); // Prevent the default form submission
 
-</head>
+        // Get the form element
+        const form = event.target;
 
-<body>
+        // Create an object to store the form data
+        const formData = new FormData(form);
 
+        // Convert the form data to a JSON object
+        const formDataObject = {};
+        formData.forEach((value, key) => {
+          formDataObject[key] = value;
+        });
+        console.log(formDataObject);
+
+        if (
+          formDataObject["email"] === "" ||
+          formDataObject["message"] === "" ||
+          formDataObject["name"] === "" ||
+          formDataObject["phone"] === "" ||
+          formDataObject["role"] === ""
+        ) {
+          console.log("do nothign");
+          // Do nothing if any of these properties are null or empty strings
+          return;
+        } else {
+          sendData(formDataObject);
+          console.log("sending Data");
+        }
+
+        // You can now use the formDataObject to send the data with the fetch API
+      }
+
+      // Function to send data using fetch
+      function sendData(data) {
+        fetch(
+          "https://d7zms2jcjc.execute-api.ca-central-1.amazonaws.com/career",
+          {
+            method: "POST", // Adjust the method (POST, GET, etc.) as needed
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        )
+          .then((response) => {
+            if (response.ok) {
+              // Handle a successful response, e.g., show a success message
+              console.log("Data sent successfully");
+              alert("Thank you");
+              location.reload("/");
+            } else {
+              // Handle errors, e.g., show an error message
+              console.error("Error sending data");
+            }
+          })
+          .catch((error) => {
+            // Handle any network or fetch-related errors
+            console.error("Fetch error:", error);
+          });
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("#career");
+        form.addEventListener("submit", handleSubmit);
+      });
+    </script>
+  </head>
+
+  <body>
     <div class="preloader">
-        <div class="lds-ripple">
-            <div></div>
-            <div></div>
-        </div>
-    </div><!-- /.preloader -->
-
-     <div class="page-wrapper">
-        <section class="topbar-one">
-            <div class="container">
-                <div class="topbar-one__left">
-                    <a href="#">
-                        <i class="fa fa-map-marker-alt"></i>
-                       38 Colin Crescent, Hamilton, ON L9A 0A1, Canada</a>
-                    <a href="#">
-                        <i class="far fa-clock"></i>
-                        Mon - Sat 9.00 - 18.00
-                    </a>
-                    <a href="tel:+251-235-3256">
-                        <i class="far fa-phone"></i>
-                   +1 (519) 574-2628
-                    </a>
-                </div><!-- /.topbar-one__left -->
-            </div><!-- /.container -->
-        </section><!-- /.topbar-one -->
-	    
-
-       <nav class="main-nav-one stricky">
-   <div class="container">
-      <div class="inner-container">
-         <div class="logo-box">
-            <a href="index.html">
-            <img src="assets/images/Connect4Care_logo.png" alt="" width="100">
-            </a>
-            <a href="#" class="side-menu__toggler"><i class="fa fa-bars"></i></a>
-         </div>
-         <!-- /.logo-box -->
-         <div class="main-nav__main-navigation">
-            <ul class="main-nav__navigation-box">
-               <li><a href="index.html">Home</a></li>
-               <li><a href="about-1.html">About</a></li>
-               <li><a href="services.html"> Services</a></li>
-               <li><a href="career.html">Career</a></li>
-               <li><a href="faqs.html">Faqs</a></li>
-               <li><a href="contact.html">Contact</a></li>
-            </ul>
-            <!-- /.main-nav__navigation-box -->
-         </div>
-         <!-- /.main-nav__main-navigation -->
-         <!-- /.main-nav__right -->
+      <div class="lds-ripple">
+        <div></div>
+        <div></div>
       </div>
-      <!-- /.inner-container -->
-   </div>
-   <!-- /.container -->
-</nav>
-<!-- /.main-nav-one -->
+    </div>
+    <!-- /.preloader -->
 
-        <section class="page-header" style="background-image: url(assets/images/background/page-header-about-1.jpg);">
-            <div class="container">
-                <h2>Career</h2>
-                <ul class="list-unstyled thm-breadcrumb">
+    <div class="page-wrapper">
+      <section class="topbar-one">
+        <div class="container">
+          <div class="topbar-one__left">
+            <a href="#">
+              <i class="fa fa-map-marker-alt"></i>
+              38 Colin Crescent, Hamilton, ON L9A 0A1, Canada</a
+            >
+            <a href="#">
+              <i class="far fa-clock"></i>
+              Mon - Sat 9.00 - 18.00
+            </a>
+            <a href="tel:+251-235-3256">
+              <i class="far fa-phone"></i>
+              +1 (519) 574-2628
+            </a>
+          </div>
+          <!-- /.topbar-one__left -->
+        </div>
+        <!-- /.container -->
+      </section>
+      <!-- /.topbar-one -->
+
+      <nav class="main-nav-one stricky">
+        <div class="container">
+          <div class="inner-container">
+            <div class="logo-box">
+              <a href="index.html">
+                <img
+                  src="assets/images/Connect4Care_logo.png"
+                  alt=""
+                  width="100"
+                />
+              </a>
+              <a href="#" class="side-menu__toggler"
+                ><i class="fa fa-bars"></i
+              ></a>
+            </div>
+            <!-- /.logo-box -->
+            <div class="main-nav__main-navigation">
+              <ul class="main-nav__navigation-box">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about-1.html">About</a></li>
+                <li><a href="services.html"> Services</a></li>
+                <li><a href="career.html">Career</a></li>
+                <li><a href="faqs.html">Faqs</a></li>
+                <li><a href="contact.html">Contact</a></li>
+              </ul>
+              <!-- /.main-nav__navigation-box -->
+            </div>
+            <!-- /.main-nav__main-navigation -->
+            <!-- /.main-nav__right -->
+          </div>
+          <!-- /.inner-container -->
+        </div>
+        <!-- /.container -->
+      </nav>
+      <!-- /.main-nav-one -->
+
+      <section
+        class="page-header"
+        style="
+          background-image: url(assets/images/background/page-header-about-1.jpg);
+        "
+      >
+        <div class="container">
+          <h2>Career</h2>
+          <ul class="list-unstyled thm-breadcrumb">
+            <li><a href="index.html">Home</a></li>
+            <li><span>Career</span></li>
+          </ul>
+          <!-- /.list-unstyled -->
+        </div>
+        <!-- /.container -->
+      </section>
+      <!-- /.page-header -->
+
+      <section class="career-one">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-5">
+              <div class="career-one__block">
+                <div class="block-title">
+                  <p>Career Opportunity</p>
+                  <h3>Looking for a Job Join Our Team</h3>
+                </div>
+                <!-- /.block-title -->
+                <p>
+                  Our goal each day is to ensure that our residents’ needs are
+                  not only met but exceeded. To make that happen we are
+                  committed to providing an environment in which residents can
+                  enjoy a wide range of amenities that
+                </p>
+                <p>
+                  Allow them to feel independent safe and secure all while
+                  having fun! Our amenities include.
+                </p>
+              </div>
+              <!-- /.career-one__block -->
+
+              <section class="contact-one">
+                <div class="container">
+                  <div class="block-title text-center">
+                    <p>Apply for Job</p>
+                    <h3>Apply for Connect4Care Career</h3>
+                  </div>
+                  <!-- /.block-title -->
+                  <form
+                    class="contact-one__form contact-form-validated"
+                    id="career"
+                  >
+                    <div class="row">
+                      <div class="col-md-6">
+                        <input
+                          type="text"
+                          placeholder="Full Name"
+                          name="name"
+                        />
+                      </div>
+                      <!-- /.col-md-6 -->
+                      <div class="col-md-6">
+                        <input
+                          type="text"
+                          placeholder="Email Address"
+                          name="email"
+                        />
+                      </div>
+                      <!-- /.col-md-6 -->
+                      <div class="col-md-6">
+                        <input
+                          type="text"
+                          placeholder="Phone Number"
+                          name="phone"
+                        />
+                      </div>
+                      <!-- /.col-md-6 -->
+                      <div class="col-md-6">
+                        <div class="dropdown bootstrap-select">
+                          <select
+                            name="role"
+                            class="selectpicker"
+                            tabindex="-98"
+                          >
+                            <option value="">Role</option>
+                            <option value="Caregiver">Caregiver</option>
+                            <option value="careAid">Care Aid</option>
+                            <option value="LPN">
+                              Licenced Practical Nurse (LPN)
+                            </option>
+                          </select>
+                        </div>
+                        <!-- /.selectpicker -->
+                      </div>
+                      <!-- /.col-md-6 -->
+                      <div class="col-md-12">
+                        <textarea
+                          name="message"
+                          placeholder="Message"
+                        ></textarea>
+                      </div>
+                      <!-- /.col-md-12 -->
+                      <div class="col-md-12 text-center">
+                        <button type="submit" class="thm-btn contact-one__btn">
+                          Submit Now
+                        </button>
+                        <!-- /.thm-btn contact-one__btn -->
+                      </div>
+                      <!-- /.col-md-12 -->
+                    </div>
+                    <!-- /.row -->
+                  </form>
+                  <div class="result"></div>
+                  <!-- /.result -->
+                </div>
+                <!-- /.container -->
+              </section>
+            </div>
+            <!-- /.col-lg-6 -->
+            <div class="col-lg-7">
+              <div class="career-one__content">
+                <div
+                  class="accrodion-grp"
+                  data-grp-name="career-one__accrodion"
+                >
+                  <div class="accrodion active">
+                    <div class="accrodion-title">
+                      <h4>Caregiver</h4>
+                    </div>
+                    <div class="accrodion-content">
+                      <div class="inner">
+                        <p>
+                          About the Position:PRO-Care provides a variety of
+                          services to assist seniors, people with disabilities,
+                          and chronically ill individuals in remaining as
+                          independent and comfortable in their own homes as
+                          possible. We are looking for dependable, caring,
+                          compassionate, and dedicated caregivers to help us
+                          achieve our goal of providing excellent and quality
+                          services to our clients in the lower mainland. If you
+                          have work or personal experience with senior family
+                          members, are empathetic, dependable, and caring, this
+                          could be the job for you!
+                        </p>
+
+                        <h4>About you</h4>
+
+                        <ul class="list-unstyled career-one__content-list">
+                          <li>A caring and compassionate attitude</li>
+                          <li>
+                            Enjoy and promote social activities and one-on-one
+                            interaction.
+                          </li>
+                          <li>
+                            Adaptable (must be available weekdays, weekends and
+                            available at short notice)
+                          </li>
+                          <li>Problem-solving ability and good life skills</li>
+                          <li>Capable of working both independently</li>
+                        </ul>
+                        <!-- /.list-unstyled career-one__content-list -->
+                        <h4>Job Responsibilities</h4>
+                        <p>
+                          Carry out light housekeeping (dusting, sweeping,
+                          mopping, vacuuming, cleaning the bathroom andkitchen,
+                          changing linens, laundry and ironing, pet and plant
+                          care, and more)
+                        </p>
+
+                        <ul class="list-unstyled career-one__content-list">
+                          <li>
+                            Assist with errands such as grocery shopping and
+                            other appointments;
+                          </li>
+                          <li>Plan and prepare meals for clients;</li>
+                          <li>
+                            Adhere to the client care plan and keep a record of
+                            each client&#39;s daily activities;
+                          </li>
+                          <li>Ensure that the home is always a safe place;</li>
+                          <li>
+                            Encourage clients to participate in social and
+                            recreational activities;
+                          </li>
+                        </ul>
+                        <!-- /.list-unstyled career-one__content-list -->
+                        <h4>Required Education and Experience</h4>
+
+                        <ul class="list-unstyled career-one__content-list">
+                          <li>
+                            +1 year previous related work or personal experience
+                          </li>
+                          <li>Completion of High School/Certificate</li>
+                          <li>Related certification is an asset</li>
+                          <li>Criminal Record with Vulnerable Sector Check</li>
+                          <li>
+                            First aid certificate is required (or willing to
+                            obtain one)
+                          </li>
+                          <li>
+                            Valid Driver’s License with a Clean Driver’s
+                            Abstract
+                          </li>
+                        </ul>
+                        <!-- /.list-unstyled career-one__content-list -->
+                      </div>
+                      <!-- /.inner -->
+                    </div>
+                  </div>
+                  <div class="accrodion">
+                    <div class="accrodion-title">
+                      <h4>Care Aid</h4>
+                    </div>
+                    <div class="accrodion-content">
+                      <div class="inner">
+                        <p>
+                          Pro-Care offers a number of services to help seniors,
+                          people with disability and chronically ill individuals
+                          to remain independent and comfortable in their own
+                          homes, for as long as possible. We are looking for
+                          reliable, caring, compassionate and dedicated
+                          caregivers to support our vision in providing
+                          excellent and quality services to our clients in the
+                          lower mainland.. If you have work and/or personal
+                          experience with senior family members, are empathetic,
+                          dependable and caring, this opportunity might be just
+                          right for you!
+                        </p>
+
+                        <h4>About you</h4>
+
+                        <ul class="list-unstyled career-one__content-list">
+                          <li>Positive attitude and pleasing personality,</li>
+                          <li>
+                            Knowledgeable with urinary catheters, feeding tubes,
+                            wound care, ostomies, medication administration
+                            (subcutaneous/intramuscular injections, insulin
+                            administration)
+                          </li>
+                          <li>Excellent verbal and written communication</li>
+                          <li>
+                            Excellent organization, multitasking, and leadership
+                            skills
+                          </li>
+                          <li>
+                            Enjoyment in social activities, and one-on-one
+                            engagement
+                          </li>
+                          <li>
+                            Flexible (must be available weekdays, weekends and
+                            available at short notice)
+                          </li>
+                          <li>Know his/her limitation</li>
+                        </ul>
+                        <!-- /.list-unstyled career-one__content-list -->
+                        <h4>Job Responsibilities</h4>
+                        <ul class="list-unstyled career-one__content-list">
+                          <li>
+                            Assists clients with their personal needs such as
+                            bathing, grooming, dressing, feeding, oral care,
+                            feeding, and incontinence care
+                          </li>
+                          <li>
+                            Enables clients to stay in their homes by monitoring
+                            and documenting their condition, providing support
+                            and personal services.
+                          </li>
+                          <li>
+                            Perform light housekeeping (dusting, sweeping,
+                            mopping, vacuuming, cleaning bathroom/kitchen,
+                            changing linens, laundry and ironing, pet/plant care
+                            and more)
+                          </li>
+                          <li>
+                            Grocery shopping, appointments, and other errands
+                          </li>
+                          <li>Provide meal planning and preparation</li>
+                          <li>
+                            Follows the client care plan and records client’s
+                            daily activities
+                          </li>
+                          <li>
+                            Maintains a safe home environment for the client
+                          </li>
+                          <li>
+                            &nbsp;Engage clients to social and recreational
+                            activities
+                          </li>
+                          <li>
+                            Reminds the client to take self-administered
+                            medications
+                          </li>
+                          <li>
+                            &nbsp;Provides transportation assistance to outings,
+                            appointments, and outings
+                          </li>
+                          <li>
+                            &nbsp;Must have a smart cellphone and data to access
+                            online documentation system
+                          </li>
+                          <li>
+                            &nbsp;Must have a reliable vehicle to transport
+                            clients
+                          </li>
+                        </ul>
+                        <h4>Required Education and Experience</h4>
+
+                        <ul class="list-unstyled career-one__content-list">
+                          <li>
+                            +1 year previous related work or personal experience
+                          </li>
+                          <li>
+                            Completion of High school, Certificate/Diploma
+                          </li>
+                          <li>
+                            &nbsp;Care Aide Certification with BC Care Aide
+                            Registry Number is an asset
+                          </li>
+                          <li>
+                            Related work or personal experience may be
+                            considered
+                          </li>
+                          <li>Criminal Record with Vulnerable Sector Check</li>
+                          <li>
+                            First aid certificate is required (or willing to
+                            obtain one)
+                          </li>
+                        </ul>
+                      </div>
+                      <!-- /.inner -->
+                    </div>
+                  </div>
+                  <div class="accrodion">
+                    <div class="accrodion-title">
+                      <h4>Licenced Practical Nurse (LPN)</h4>
+                    </div>
+                    <div class="accrodion-content">
+                      <div class="inner">
+                        <p>
+                          Pro-Care offers a number of services to help seniors,
+                          people with disability and chronically ill individuals
+                          to remain independent and comfortable in their own
+                          homes, for as long as possible. We are looking for
+                          reliable, caring, compassionate and dedicated
+                          caregivers to support our vision in providing
+                          excellent and quality services to our clients in the
+                          lower mainland.. If you have work and/or personal
+                          experience with senior family members, are empathetic,
+                          dependable and caring, this opportunity might be just
+                          right for you!
+                        </p>
+
+                        <h4>About you</h4>
+
+                        <ul class="list-unstyled career-one__content-list">
+                          <li>Positive attitude and pleasing personality,</li>
+                          <li>
+                            Knowledgeable with urinary catheters, feeding tubes,
+                            wound care, ostomies, medication administration
+                            (subcutaneous/intramuscular injections, insulin
+                            administration)
+                          </li>
+                          <li>Excellent verbal and written communication</li>
+                          <li>
+                            Excellent organization, multitasking, and leadership
+                            skills
+                          </li>
+                          <li>
+                            Enjoyment in social activities, and one-on-one
+                            engagement
+                          </li>
+                          <li>
+                            Flexible (must be available weekdays, weekends and
+                            available at short notice)
+                          </li>
+                          <li>Know his/her limitation</li>
+                        </ul>
+                        <!-- /.list-unstyled career-one__content-list -->
+                        <h4>Job Responsibilities</h4>
+                        <ul class="list-unstyled career-one__content-list">
+                          <li>2+ years of experience required</li>
+                          <li>
+                            Graduate of an approved Nursing Education program
+                            required
+                          </li>
+                          <li>
+                            &nbsp; Valid nursing license with good standing with
+                            BCCNP
+                          </li>
+                          <li>Basic Life Support (BLS) certified</li>
+                          <li>Valid class 5 drivers license required</li>
+                          <li>&nbsp;Must have a reliable vehicle</li>
+                          <li>Updated immunization record</li>
+                          <li>Criminal Record with Vulnerable Sector Check</li>
+                        </ul>
+                      </div>
+                      <!-- /.inner -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.career-one__content -->
+            </div>
+            <!-- /.col-lg-6 -->
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.container -->
+      </section>
+      <!-- /.career-one -->
+
+      <footer class="site-footer">
+        <div class="site-footer__main">
+          <div class="container">
+            <div class="row">
+              <div class="col-xl-3 col-lg-6 col-md-5">
+                <img
+                  src="assets/images/Connect4Care_logo.png"
+                  style="width: 62%"
+                />
+              </div>
+              <div class="col-xl-4 col-lg-6 col-md-5">
+                <div class="footer-widget footer-widget__about">
+                  <h3 class="footer-widget__title">About</h3>
+                  <!-- /.footer-widget__title -->
+                  <p>
+                    We see that disability and aging can take this safe place to
+                    be an unsafe environment. Connect4care At Home believes that
+                    your home, irrespective of your disability and aging, is the
+                    comfortable and right place for you to live.
+                  </p>
+                </div>
+                <!-- /.footer-widget -->
+              </div>
+              <!-- /.col-xl-4 col-lg-6 col-md-5 -->
+              <div class="col-xl-2 col-lg-6 col-md-5">
+                <div class="footer-widget footer-widget__links">
+                  <h3 class="footer-widget__title">Services</h3>
+                  <!-- /.footer-widget__title -->
+                  <ul class="list-unstyled footer-widget__links-list">
                     <li><a href="index.html">Home</a></li>
-                    <li><span>Career</span></li>
-                </ul><!-- /.list-unstyled -->
-            </div><!-- /.container -->
-        </section><!-- /.page-header -->
-
-        <section class="career-one">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-5">
-                        <div class="career-one__block">
-                            <div class="block-title">
-                                <p>Career Opportunity</p>
-                                <h3>Looking for a Job Join Our Team
-</h3>
-                            </div><!-- /.block-title -->
-                            <p>Our goal each day is to ensure that our residents’ needs are not only met but exceeded.
-                                To make that happen we are committed to providing an environment in which residents can
-                                enjoy a wide range of amenities that</p>
-                            <p>Allow them to feel independent safe and secure all while having fun! Our amenities
-                                include.</p>
-                        </div><!-- /.career-one__block -->
-			    
-                        <section class="contact-one">
-                            <div class="container">
-                                <div class="block-title text-center">
-                                    <p>Apply for Job</p>
-                                    <h3>Apply for Connect4Care Career</h3>
-                                </div><!-- /.block-title -->
-                                <form action="assets/inc/sendemail.php" class="contact-one__form contact-form-validated" novalidate="novalidate">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <input type="text" placeholder="Full Name" name="name">
-                                        </div><!-- /.col-md-6 -->
-                                        <div class="col-md-6">
-                                            <input type="text" placeholder="Email Address" name="email">
-                                        </div><!-- /.col-md-6 -->
-                                        <div class="col-md-6">
-                                            <input type="text" placeholder="Phone Number" name="phone">
-                                        </div><!-- /.col-md-6 -->
-                                        <div class="col-md-6">
-                                            <div class="dropdown bootstrap-select"><select name="role" class="selectpicker" tabindex="-98">
-                                                <option value="">Role</option>
-                                                <option value="">Caregiver</option>
-                                                <option value="">Care Aid</option>
-                                                <option value="">Licenced Practical Nurse (LPN)</option>
-                                            </select>
-                                               </div><!-- /.selectpicker -->
-                                        </div><!-- /.col-md-6 -->
-                                        <div class="col-md-12">
-                                            <textarea name="message" placeholder="Message"></textarea>
-                                        </div><!-- /.col-md-12 -->
-                                        <div class="col-md-12 text-center">
-                                            <button type="submit" class="thm-btn contact-one__btn">Submit Now</button>
-                                            <!-- /.thm-btn contact-one__btn -->
-                                        </div><!-- /.col-md-12 -->
-                                    </div><!-- /.row -->
-                                </form>
-                                <div class="result"></div><!-- /.result -->
-                            </div><!-- /.container -->
-                        </section>
-                    </div><!-- /.col-lg-6 -->
-                    <div class="col-lg-7">
-                        <div class="career-one__content">
-                            <div class="accrodion-grp" data-grp-name="career-one__accrodion">
-                                <div class="accrodion active">
-                                    <div class="accrodion-title">
-                                        <h4>Caregiver</h4>
-                                    </div>
-                                    <div class="accrodion-content">
-                                        <div class="inner">
-                                            <p>About the Position:PRO-Care provides a variety of services to assist seniors, people with disabilities, and
-chronically ill individuals in remaining as independent and comfortable in their own
-homes as possible. We are looking for dependable, caring, compassionate, and
-dedicated caregivers to help us achieve our goal of providing excellent and quality
-services to our clients in the lower mainland. If you have work or personal experience
-with senior family members, are empathetic, dependable, and caring, this could be the
-job for you!</p>
-
-<h4>About you</h4>
-                                         
-                                            <ul class="list-unstyled career-one__content-list">
-                                                <li>A caring and compassionate attitude</li>
-                                                <li>Enjoy and promote social activities and one-on-one interaction.</li>
-												  <li>Adaptable (must be available weekdays, weekends and available at short notice)</li>
-												    <li>Problem-solving ability and good life skills</li>
-													  <li>Capable of working both independently</li>
-													 
-													  
-                                            </ul><!-- /.list-unstyled career-one__content-list -->
-                                            <h4>Job Responsibilities</h4>
-                                         <p>Carry out light housekeeping (dusting, sweeping, mopping, vacuuming, 
-										 cleaning the bathroom andkitchen, changing linens, laundry and ironing, pet and plant care, and more)</p>
-                                                
-                                            <ul class="list-unstyled career-one__content-list">
-                                                <li>Assist with errands such as grocery shopping and other appointments;</li>
-												  <li>Plan and prepare meals for clients;</li>
-												    <li>Adhere to the client care plan and keep a record of each client&#39;s daily activities;</li>
-													  <li>Ensure that the home is always a safe place;</li>
-													    <li>Encourage clients to participate in social and recreational activities;</li>
-													  
-                                            </ul><!-- /.list-unstyled career-one__content-list -->
-                                            <h4>Required Education and Experience</h4>
-                                          
-                                                        <ul class="list-unstyled career-one__content-list">
-                                                <li>+1 year previous related work or personal experience</li>
-                                                <li>Completion of High School/Certificate</li>
-												 <li>Related certification is an asset</li>
-												  <li>Criminal Record with Vulnerable Sector Check</li>
-												   <li>First aid certificate is required (or willing to obtain one)</li>
-												     <li>Valid Driver’s License with a Clean Driver’s Abstract</li>
-                                            </ul><!-- /.list-unstyled career-one__content-list -->
-                                 
-                                        </div><!-- /.inner -->
-                                    </div>
-                                </div>
-                                <div class="accrodion ">
-                                    <div class="accrodion-title">
-                                        <h4>Care Aid
-</h4>
-                                    </div>
-                                <div class="accrodion-content">
-                                        <div class="inner">
-                                            <p>Pro-Care offers a number of services to help seniors, people with disability and chronically ill individuals
-to remain independent and comfortable in their own homes, for as long as possible. We are looking for
-reliable, caring, compassionate and dedicated caregivers to support our vision in providing excellent and
-quality services to our clients in the lower mainland.. If you have work and/or personal experience with
-senior family members, are empathetic, dependable and caring, this opportunity might be just right for
-you!</p>
-
-<h4>About you</h4>
-                                         
-                                            <ul class="list-unstyled career-one__content-list">
-                                                <li>Positive attitude and pleasing personality,</li>
-                                                <li>Knowledgeable with urinary catheters, feeding tubes, wound care, ostomies, medication administration (subcutaneous/intramuscular injections, insulin administration)</li>
-												  <li>Excellent verbal and written communication</li>
-												    <li>Excellent organization, multitasking, and leadership skills</li>
-													  <li>Enjoyment in social activities, and one-on-one engagement</li>
-													   <li>Flexible (must be available weekdays, weekends and available at short notice)</li>
-													  <li>Know his/her limitation</li>
-													 
-													  
-                                            </ul><!-- /.list-unstyled career-one__content-list -->
-                                            <h4>Job Responsibilities</h4>
-                                          <ul class="list-unstyled career-one__content-list">
-<li>Assists clients with their personal needs such as bathing, grooming, dressing, feeding, oral care, feeding, and incontinence care</li>
-<li>Enables clients to stay in their homes by monitoring and documenting their condition, providing support and personal services.</li>
-<li>Perform light housekeeping (dusting, sweeping, mopping, vacuuming, cleaning bathroom/kitchen, changing linens, laundry and ironing, pet/plant care and more)</li>
-<li>Grocery shopping, appointments, and other errands</li>
-<li>Provide meal planning and preparation</li>
-<li>Follows the client care plan and records client’s daily activities</li>
-<li>Maintains a safe home environment for the client</li>
-<li>&nbsp;Engage clients to social and recreational activities</li>
-<li>Reminds the client to take self-administered medications</li>
-<li>&nbsp;Provides transportation assistance to outings, appointments, and outings</li>
-<li>&nbsp;Must have a smart cellphone and data to access online documentation system</li>
-<li>&nbsp;Must have a reliable vehicle to transport clients</li>
-</ul>
-                                            <h4>Required Education and Experience</h4>
-                                          
-                                                        <ul class="list-unstyled career-one__content-list">
-<li>+1 year previous related work or personal experience</li>
-<li>Completion of High school, Certificate/Diploma</li>
-<li>&nbsp;Care Aide Certification with BC Care Aide Registry Number is an asset</li>
-<li>Related work or personal experience may be considered</li>
-<li>Criminal Record with Vulnerable Sector Check</li>
-<li>First aid certificate is required (or willing to obtain one)</li>
-</ul>
-                                         
-                                        </div><!-- /.inner -->
-                                    </div>
-                                </div>
-                                <div class="accrodion">
-                                    <div class="accrodion-title">
-                                        <h4>Licenced Practical Nurse (LPN)
-</h4>
-                                    </div>
-                                <div class="accrodion-content">
-                                        <div class="inner">
-                                            <p>Pro-Care offers a number of services to help seniors, people with disability and chronically ill individuals
-to remain independent and comfortable in their own homes, for as long as possible. We are looking for
-reliable, caring, compassionate and dedicated caregivers to support our vision in providing excellent and
-quality services to our clients in the lower mainland.. If you have work and/or personal experience with
-senior family members, are empathetic, dependable and caring, this opportunity might be just right for
-you!</p>
-
-<h4>About you</h4>
-                                         
-                                            <ul class="list-unstyled career-one__content-list">
-                                               <li>Positive attitude and pleasing personality,</li><li>Knowledgeable with urinary catheters, feeding tubes, wound care, ostomies, medication administration (subcutaneous/intramuscular injections, insulin administration)</li><li>Excellent verbal and written communication</li><li>Excellent organization, multitasking, and leadership skills</li><li>Enjoyment in social activities, and one-on-one engagement</li><li>Flexible (must be available weekdays, weekends and available at short notice)</li><li>Know his/her limitation</li>
-                                            </ul><!-- /.list-unstyled career-one__content-list -->
-                                            <h4>Job Responsibilities</h4>
-                                        <ul class="list-unstyled career-one__content-list">
-									   <li>2+ years of experience required</li><li>Graduate of an approved Nursing Education program required</li><li>&nbsp; Valid nursing license with good standing with BCCNP</li><li>Basic Life Support (BLS) certified</li><li>Valid class 5 drivers license required</li><li>&nbsp;Must have a reliable vehicle</li><li>Updated immunization record</li><li>Criminal Record with Vulnerable Sector Check</li></ul>
-                            
-                                        </div><!-- /.inner -->
-                                    </div>
-                                </div>
-                        
-                            </div>
-                        </div><!-- /.career-one__content -->
-                    </div><!-- /.col-lg-6 -->
-                </div><!-- /.row -->
-            </div><!-- /.container -->
-        </section><!-- /.career-one -->
-
-
-
-<footer class="site-footer">
-      <div class="site-footer__main">
-      <div class="container">
-      <div class="row">
-      <div class="col-xl-3 col-lg-6 col-md-5"><img src="assets/images/Connect4Care_logo.png" style="
-         width: 62%;
-         "></div>
-      <div class="col-xl-4 col-lg-6 col-md-5">
-      <div class="footer-widget footer-widget__about">
-      <h3 class="footer-widget__title">About</h3><!-- /.footer-widget__title -->
-      <p>We see that disability and aging can take this safe place to be an unsafe environment. 
-      Connect4care At Home believes that your home, irrespective of your disability and aging, 
-      is the comfortable and right place for you to live.</p>
-      </div><!-- /.footer-widget -->
-      </div><!-- /.col-xl-4 col-lg-6 col-md-5 -->
-      <div class="col-xl-2 col-lg-6 col-md-5">
-      <div class="footer-widget footer-widget__links">
-      <h3 class="footer-widget__title">Services</h3><!-- /.footer-widget__title -->
-      <ul class="list-unstyled footer-widget__links-list">
-      <li> <a href="index.html">Home</a></li>
-      <li><a href="about-1.html">About</a></li>
-      <li><a href="services.html">Our Services</a></li>
-      <li><a href="career.html">Career</a></li>
-      <li><a href="faqs.html">Faqs</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      </ul><!-- /.list-unstyled footer-widget__links-list -->
-      </div><!-- /.footer-widget footer-widget__links -->
-      </div><!-- /.col-xl-2 col-lg-6 col-md-5 -->
-      <div class="col-xl-3 col-lg-6 col-md-5">
-      <div class="footer-widget footer-widget__contact">
-      <h3 class="footer-widget__title">Contacts</h3><!-- /.footer-widget__title -->
-      <p>38 Colin Crescent, Hamilton, ON L9A 0A1, Canada</p>
-      <p><a href="tel:++1 (519) 574-2628">+1 (519) 574-2628</a></p>
-      <p><a href="mailto:info@connect4care.com">info@connect4care.com</a></p>
-      </div><!-- /.footer-widget footer-widget__contact -->
-      </div><!-- /.col-xl-3 col-lg-6 col-md-5 -->
-      </div><!-- /.row -->
-      </div><!-- /.container -->
-      </div><!-- /.site-footer__main -->
-      <div class="site-footer__bottom">
-      <div class="container text-center">
-      <p>Connect4Care Inc <i class="far fa-copyright"></i> 2023 All Right Reserved</p>
-   
-      </div><!-- /.container -->
-      </div><!-- /.site-footer__bottom -->
+                    <li><a href="about-1.html">About</a></li>
+                    <li><a href="services.html">Our Services</a></li>
+                    <li><a href="career.html">Career</a></li>
+                    <li><a href="faqs.html">Faqs</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                  </ul>
+                  <!-- /.list-unstyled footer-widget__links-list -->
+                </div>
+                <!-- /.footer-widget footer-widget__links -->
+              </div>
+              <!-- /.col-xl-2 col-lg-6 col-md-5 -->
+              <div class="col-xl-3 col-lg-6 col-md-5">
+                <div class="footer-widget footer-widget__contact">
+                  <h3 class="footer-widget__title">Contacts</h3>
+                  <!-- /.footer-widget__title -->
+                  <p>38 Colin Crescent, Hamilton, ON L9A 0A1, Canada</p>
+                  <p><a href="tel:++1 (519) 574-2628">+1 (519) 574-2628</a></p>
+                  <p>
+                    <a href="mailto:info@connect4care.com"
+                      >info@connect4care.com</a
+                    >
+                  </p>
+                </div>
+                <!-- /.footer-widget footer-widget__contact -->
+              </div>
+              <!-- /.col-xl-3 col-lg-6 col-md-5 -->
+            </div>
+            <!-- /.row -->
+          </div>
+          <!-- /.container -->
+        </div>
+        <!-- /.site-footer__main -->
+        <div class="site-footer__bottom">
+          <div class="container text-center">
+            <p>
+              Connect4Care Inc <i class="far fa-copyright"></i> 2023 All Right
+              Reserved
+            </p>
+          </div>
+          <!-- /.container -->
+        </div>
+        <!-- /.site-footer__bottom -->
       </footer>
+    </div>
+    <!-- /.page-wrapper -->
 
-
-
-    </div><!-- /.page-wrapper -->
-
-    <a href="#" data-target="html" class="scroll-to-target scroll-to-top"><i class="fa fa-angle-up"></i></a>
+    <a href="#" data-target="html" class="scroll-to-target scroll-to-top"
+      ><i class="fa fa-angle-up"></i
+    ></a>
 
     <div class="side-menu__block">
+      <a href="#" class="side-menu__toggler side-menu__close-btn"
+        ><i class="fa fa-times"></i>
+        <!-- /.fa fa-close --></a
+      >
 
-        <a href="#" class="side-menu__toggler side-menu__close-btn"><i class="fa fa-times"></i>
-            <!-- /.fa fa-close --></a>
-
-        <div class="side-menu__block-overlay custom-cursor__overlay">
-            <div class="cursor"></div>
-            <div class="cursor-follower"></div>
-        </div><!-- /.side-menu__block-overlay -->
-        <div class="side-menu__block-inner ">
-
-            <a href="index.html" class="side-menu__logo"><img src="assets/images/Connect4Care_logo.png" alt=""
-                    width="190"></a>
-            <nav class="mobile-nav__container">
-                <!-- content is loading via js -->
-            </nav>
-          
-        </div><!-- /.side-menu__block-inner -->
-    </div><!-- /.side-menu__block -->
+      <div class="side-menu__block-overlay custom-cursor__overlay">
+        <div class="cursor"></div>
+        <div class="cursor-follower"></div>
+      </div>
+      <!-- /.side-menu__block-overlay -->
+      <div class="side-menu__block-inner">
+        <a href="index.html" class="side-menu__logo"
+          ><img src="assets/images/Connect4Care_logo.png" alt="" width="190"
+        /></a>
+        <nav class="mobile-nav__container">
+          <!-- content is loading via js -->
+        </nav>
+      </div>
+      <!-- /.side-menu__block-inner -->
+    </div>
+    <!-- /.side-menu__block -->
 
     <!-- template scripts -->
     <script src="assets/js/jquery.min.js"></script>
@@ -395,6 +719,5 @@ you!</p>
     <script src="assets/js/wow.min.js"></script>
     <script src="assets/js/swiper.min.js"></script>
     <script src="assets/js/theme.js"></script>
-</body>
-
+  </body>
 </html>

@@ -45,17 +45,44 @@
     formData.forEach((value, key) => {
       formDataObject[key] = value;
     });
+    console.log(formDataObject)
+
+
+ if (
+  formDataObject["Location"] === ""  ||
+  formDataObject["email"] === "" || 
+  formDataObject["message"] === "" || 
+   formDataObject["name"] === "" ||
+  formDataObject["phone"] === "" ||  
+  formDataObject["service"] === "" ||
+  formDataObject["text"] === "" 
+) {
+   console.log("do nothign")
+  // Do nothing if any of these properties are null or empty strings
+  return
+} 
+
+else{
+
+   sendData(formDataObject);
+   console.log("sending Data")
+} 
+    
+
+   
+
+    
 
     // You can now use the formDataObject to send the data with the fetch API
-    sendData(formDataObject);
   }
 
   // Function to send data using fetch
   function sendData(data) {
-    fetch('https://h4xrm3m5gd6dhabhhmjav2swrm0wwokt.lambda-url.ca-central-1.on.aws', {
+    fetch('https://susl8bqnii.execute-api.ca-central-1.amazonaws.com/prod', {
       method: 'POST', // Adjust the method (POST, GET, etc.) as needed
       headers: {
-        'Content-Type': 'application/json',
+      'Content-Type': 'application/json',
+
       },
       body: JSON.stringify(data),
     })
@@ -63,6 +90,9 @@
         if (response.ok) {
           // Handle a successful response, e.g., show a success message
           console.log('Data sent successfully');
+          alert("Thank you")
+          location.reload('/')
+          
         } else {
           // Handle errors, e.g., show an error message
           console.error('Error sending data');
@@ -217,47 +247,47 @@
                </div>
                <!-- /.col-lg-4 -->
                <div class="col-lg-8">
-                  <form action="https://h4xrm3m5gd6dhabhhmjav2swrm0wwokt.lambda-url.ca-central-1.on.aws" class="contact-one__form contact-form-validated">
+                  <form class="contact-one__form contact-form-validated">
                      <div class="row">
                         <div class="col-md-6">
-                           <input type="text" placeholder="Full Name" name="name">
+                           <input type="text" placeholder="Full Name" name="name" required="true">
                         </div>
                         <!-- /.col-md-6 -->
                         <div class="col-md-6">
-                           <input type="text" placeholder="Email Address" name="email">
+                           <input type="text" placeholder="Email Address" name="email" required>
                         </div>
                         <!-- /.col-md-6 -->
                         <div class="col-md-6">
-                           <input type="text" placeholder="Phone Number" name="phone">
+                           <input type="text" placeholder="Phone Number" name="phone" required>
                         </div>
                         <!-- /.col-md-6 -->
                         <div class="col-md-6">
-                           <select name="Location" class="selectpicker">
-                              <option value="">Location </option>
-                              <option value="">Surrey </option>
-                              <option value="">Delta</option>
-                              <option value="">Langley</option>
+                           <select name="Location" class="selectpicker" required>
+                              
+                              <option value="Surrey">Surrey </option>
+                              <option value="Delta">Delta</option>
+                              <option value="Langley">Langley</option>
                            </select>
                            <!-- /.selectpicker -->
                         </div>
                         <!-- /.col-md-6 -->
                         <div class="col-md-6">
-                           <select name="When do you need our service" class="selectpicker">
+                           <select name="service" class="selectpicker" required>
                               <option value="">When do you need our service </option>
-                              <option value="">Immediatly </option>
-                              <option value="">Within a week</option>
-                              <option value="">Within a month</option>
-                              <option value="">Not sure</option>
+                              <option value="Immediatly">Immediatly </option>
+                              <option value="week">Within a week</option>
+                              <option value="month">Within a month</option>
+                              <option value="notsure">Not sure</option>
                            </select>
                            <!-- /.selectpicker -->
                         </div>
                         <!-- /.col-md-6 -->
                         <div class="col-md-6">
-                           <input type="text" placeholder="Subject" name="text">
+                           <input type="text" placeholder="Subject" name="text" required>
                         </div>
                         <!-- /.col-md-6 -->
                         <div class="col-md-12">
-                           <textarea name="message" placeholder="Message"></textarea>
+                           <textarea name="message" placeholder="Message" required></textarea>
                         </div>
                         <!-- /.col-md-12 -->
                         <div class="col-md-12 text-right">
